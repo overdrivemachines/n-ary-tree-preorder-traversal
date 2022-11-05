@@ -34,26 +34,38 @@ int main(int argc, char const *argv[]) {
   Node *tree_root1 = createTree(input1);
   Node *tree_root2 = createTree(input2);
 
-  // vector<int> preorderTraversal1 = preorder(tree_root1);
-  // vector<int> preorderTraversal2 = preorder(tree_root2);
+  vector<int> preorderTraversal1 = preorder(tree_root1);
+  vector<int> preorderTraversal2 = preorder(tree_root2);
 
-  // printVector(preorderTraversal1);
+  printVector(preorderTraversal1);
+  printVector(preorderTraversal2);
   return 0;
 }
 
+// returns the preorder traversal of an n-ary tree's nodes' values.
 vector<int> preorder(Node *root) {
   vector<int> pre;
-  Node *node, *childNode;  // traverses the node;
+  Node *node;  // traverses the node;
   stack<Node *> s;
   int i = 0;  // iterator for for loop
 
+  if (root == nullptr)
+    return pre;
+  if (root->children.empty()) {
+    pre.push_back(root->val);
+    return pre;
+  }
+
   s.push(root);
   node = root;
+
+  // cout << "root: " << root->val << endl;
 
   while (!s.empty()) {
     // get the top most element on the stack
     node = s.top();
     s.pop();
+    // cout << "popped " << node->val << endl;
 
     // add node's val to the pre vector and
     pre.push_back(node->val);
@@ -94,6 +106,8 @@ Node *createTree(vector<int> input) {
       nodes.pop();
     }
   }
+
+  return root;
 }
 
 // prints the contents of a vector
